@@ -83,7 +83,7 @@ class EspIdfProvisioning: NSObject {
 
             switch status {
               case .connected:
-                  resolve(deviceName)
+                  resolve(espDevice.name)
               case let .failedToConnect(error):
                   reject("400", "Failed to connect", error)
               default:
