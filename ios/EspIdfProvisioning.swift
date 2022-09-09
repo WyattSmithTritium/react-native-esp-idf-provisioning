@@ -18,7 +18,7 @@ class EspIdfProvisioning: NSObject {
     func createDevice(_ deviceName: String, devicePassword: String, deviceProofOfPossession: String, successCallback: @escaping RCTResponseSenderBlock) -> Void {
       ESPProvisionManager.shared.createESPDevice(
           deviceName: deviceName,
-          transport: ESPTransport.softap,
+          transport: ESPTransport.ble,
           security: ESPSecurity.secure,
           proofOfPossession: deviceProofOfPossession,
           softAPPassword: devicePassword
@@ -83,7 +83,7 @@ class EspIdfProvisioning: NSObject {
 
             switch status {
               case .connected:
-                  resolve(status)
+                  resolve(deviceName)
               case let .failedToConnect(error):
                   reject("400", "Failed to connect", error)
               default:
