@@ -215,4 +215,12 @@ class EspIdfProvisioningModule(reactContext: ReactApplicationContext) : ReactCon
         })
       }
     }
+
+    @ReactMethod
+    fun disconnect() {
+      val device = ESPProvisionManager.getInstance(reactApplicationContext).espDevice
+      if (device != null) {
+        device.disconnectDevice();
+      }
+    }
 }
