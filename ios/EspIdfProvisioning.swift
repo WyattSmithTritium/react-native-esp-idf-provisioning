@@ -128,11 +128,11 @@ class EspIdfProvisioning: NSObject {
         resolve(networks)
       }
     }
-
+  
     @objc(provision:passPhrase:withResolver:withRejecter:)
     func provision(ssid: String, passPhrase: String, resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
       EspDevice.shared.espDevice?.provision(ssid: ssid, passPhrase: passPhrase, completionHandler: {
-        status, error in
+        status in
         dump(status)
         switch status {
           case .success:
@@ -141,21 +141,15 @@ class EspIdfProvisioning: NSObject {
           case .configApplied:
             break
           case .failure:
-            reject(.failure)
-            return
-          default:
-            if error != nil {
-              reject(error)
-            } else {
-              reject(status)
-            }
+            let error = NSError(domain: "provision", code: 401, userInfo: [NSLocalizedDescriptionKey : "failure"])
+            reject("401", "failure", error)
             return
         }
       })
     }
   
-  @objc(disconnect)
-  func disconnect() -> Void {
-    EspDevice.shared.espDevice?.disconnect()
-  }
+    @objc(disconnect)
+    func disconnect() -> Void {
+      EspDevice.shared.espDevice?.disconnect()
+    }
 }
