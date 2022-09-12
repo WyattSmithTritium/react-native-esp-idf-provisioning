@@ -131,14 +131,31 @@ class EspIdfProvisioning: NSObject {
 
     @objc(provision:passPhrase:withResolver:withRejecter:)
     func provision(ssid: String, passPhrase: String, resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
-      var completedFlag = false
       EspDevice.shared.espDevice?.provision(ssid: ssid, passPhrase: passPhrase, completionHandler: {
-        status in
+        status, error in
         dump(status)
-        if(!completedFlag) {
-          completedFlag = true
-          resolve(status)
+        switch status {
+          case .success:
+            resolve(ssid)
+            return
+          case .configApplied:
+            break
+          case .failure:
+            reject(.failure)
+            return
+          default:
+            if error != nil {
+              reject(error)
+            } else {
+              reject(status)
+            }
+            return
         }
       })
     }
+  
+  @objc(disconnect)
+  func disconnect() -> Void {
+    EspDevice.shared.espDevice?.disconnect()
+  }
 }

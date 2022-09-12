@@ -30,7 +30,7 @@
 		B3E7B5891CC2AC0600A0062D /* EspIdfProvisioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EspIdfProvisioning.m; sourceTree = "<group>"; };
 		EAEEAB11A930E597AB269796 /* Pods-EspIdfProvisioning.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspIdfProvisioning.debug.xcconfig"; path = "Target Support Files/Pods-EspIdfProvisioning/Pods-EspIdfProvisioning.debug.xcconfig"; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* EspIdfProvisioning-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EspIdfProvisioning-Bridging-Header.h"; sourceTree = "<group>"; };
-		F4FF95D6245B92E800C19C63 /* EspIdfProvisioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EspIdfProvisioning.swift; sourceTree = "<group>"; };
+		F4FF95D6245B92E800C19C63 /* EspIdfProvisioning.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = EspIdfProvisioning.swift; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
