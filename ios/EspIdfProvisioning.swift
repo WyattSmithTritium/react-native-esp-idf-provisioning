@@ -48,12 +48,16 @@ class EspIdfProvisioning: NSObject {
           }
 
           // TODO: We only return the name of the devices. Do we want to return more (MAC address, RSSI...)?
-          let deviceNames = bleDevices!.map {[
-            "name": $0.name,
-            "address": $0.name
-          ]}
-          // Return found BLE device names
-          resolve(deviceNames)
+          if let list = bleDevices {
+            let deviceNames = list.map{[
+              "name": $0.name,
+              "address": $0.name
+            ]}
+            resolve(deviceNames)
+          } else {
+            let error = NSError(domain: "scanWifiList", code: 400, userInfo: [NSLocalizedDescriptionKey : "Networks not found"])
+            reject("400", "Networks not found", error)
+          }
         }
       }
     }
@@ -118,14 +122,17 @@ class EspIdfProvisioning: NSObject {
     @objc(scanWifiList:withRejecter:)
     func scanWifiList(resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
       EspDevice.shared.espDevice?.scanWifiList{ wifiList, _ in
-
-        let networks = wifiList!.map {[
+        if let list = wifiList {
+          let networks = list.map{[
             "name": $0.ssid,
             "rssi": $0.rssi,
             "security": $0.auth.rawValue,
-        ]}
-
-        resolve(networks)
+          ]}
+          resolve(networks)
+        } else {
+          let error = NSError(domain: "scanWifiList", code: 400, userInfo: [NSLocalizedDescriptionKey : "Networks not found"])
+          reject("400", "Networks not found", error)
+        }
       }
     }
   
